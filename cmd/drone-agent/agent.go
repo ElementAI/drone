@@ -194,10 +194,7 @@ func (r *runner) run(ctx context.Context) error {
 		logger.Debug().
 			Msg("using docker engine")
 	case "borgy":
-		engine = &Borgy{
-			User: "eric@elementai.com",
-		}
-
+		engine = NewBorgy("eric@elementai.com")
 		logger.Debug().
 			Msg("using borgy engine")
 	}
