@@ -109,6 +109,7 @@ func loop(c *cli.Context) error {
 					client:   client,
 					filter:   filter,
 					hostname: hostname,
+					engine:   c.String("engine"),
 				}
 				if err := r.run(ctx); err != nil {
 					log.Error().Err(err).Msg("pipeline done with error")
@@ -134,6 +135,7 @@ type runner struct {
 	client   rpc.Peer
 	filter   rpc.Filter
 	hostname string
+	engine   string
 }
 
 func (r *runner) run(ctx context.Context) error {
@@ -174,14 +176,30 @@ func (r *runner) run(ctx context.Context) error {
 	logger.Debug().
 		Msg("received execution")
 
-	// new docker engine
-	engine, err := docker.NewEnv()
-	if err != nil {
-		logger.Error().
-			Err(err).
-			Msg("cannot create docker client")
+	// new docker or borgy backend engine
+	var engine backend.Engine
 
-		return err
+	switch r.engine {
+	case "", "docker":
+		de, err := docker.NewEnv()
+		if err != nil {
+			logger.Error().
+				Err(err).
+				Msg("cannot create docker client")
+
+			return err
+		}
+
+		engine = de
+		logger.Debug().
+			Msg("using docker engine")
+	case "borgy":
+		engine = &Borgy{
+			User: "eric@elementai.com",
+		}
+
+		logger.Debug().
+			Msg("using borgy engine")
 	}
 
 	ctx, cancel := context.WithTimeout(ctxmeta, timeout)

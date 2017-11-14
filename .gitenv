@@ -1,0 +1,27 @@
+{
+  "links": {
+    ".": "src/github.com/ElementAI/drone"
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/drone/drone-ui.git",
+      "dir": "src/github.com/drone/drone-ui"
+    },
+    {
+      "url": "https://go.googlesource.com/tools.git",
+      "dir": "src/golang.org/x/tools"
+    },
+    {
+      "url": "https://github.com/golang/protobuf.git",
+      "dir": "src/github.com/golang/protobuf"
+    },
+    {
+      "url": "https://go.googlesource.com/net.git",
+      "dir": "src/golang.org/x/net"
+    },
+    {
+      "url": "https://github.com/ElementAI/go-borgy.git",
+      "dir": "src/github.com/ElementAI/go-borgy"
+    }
+  ]
+}

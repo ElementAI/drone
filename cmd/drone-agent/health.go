@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/drone/drone/version"
+	"github.com/ElementAI/drone/version"
 	"github.com/urfave/cli"
 )
 
